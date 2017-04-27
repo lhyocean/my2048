@@ -45,6 +45,7 @@ public class Game2048Layout extends RelativeLayout{
      *   手势处理
      */
     private GestureDetector mGestureDetector;
+    private int mLength;
 
 
     public Game2048Layout(Context context) {
@@ -62,6 +63,20 @@ public class Game2048Layout extends RelativeLayout{
         mGestureDetector=new GestureDetector(context,new MyGestureDetector() );
 
     }
+
+    public void setColumn(int column) {
+        mColumn = column;
+        removeAllViews();
+        once=false;
+        addChild(mLength);
+        restart();
+
+    }
+
+    public int getColumn() {
+        return mColumn;
+    }
+
     private boolean once;
     /**
      * 测量Layout的宽和高，以及设置Item的宽和高，这里忽略wrap_content 以宽、高之中的最小值绘制正方形
@@ -70,19 +85,24 @@ public class Game2048Layout extends RelativeLayout{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         // 2048正方形外框的边长
-        int length=Math.min(getMeasuredHeight(),getMeasuredWidth());
+        mLength = Math.min(getMeasuredHeight(),getMeasuredWidth());
         // item 边长
+        addChild(mLength);
+        setMeasuredDimension(mLength, mLength);
+    }
+
+    private void addChild(int length) {
         int childWidth=(length-mPadding*2-mMargin*(mColumn-1))/mColumn;
+
         if (!once){
-            if (mGame2048Items==null){
                 mGame2048Items=new Game2048Item[mColumn*mColumn];
-            }
+
             // 放置Item
             for (int i = 0; i < mGame2048Items.length; i++) {
                 Game2048Item item=new Game2048Item(getContext());
                 mGame2048Items[i]=item;
                 item.setId(i+1);
-                RelativeLayout.LayoutParams lp=new LayoutParams(childWidth,childWidth);
+                LayoutParams lp=new LayoutParams(childWidth,childWidth);
                 // 设置横向边距
                 if ((i+1)%mColumn!=0){
                     lp.rightMargin=mMargin;
@@ -97,13 +117,10 @@ public class Game2048Layout extends RelativeLayout{
                     lp.addRule(RelativeLayout.BELOW,mGame2048Items[i-mColumn].getId());
                 }
                 addView(item,lp);
-
             }
             generaterNum();
-
         }
         once=true;
-        setMeasuredDimension(length,length);
     }
 
     /**
