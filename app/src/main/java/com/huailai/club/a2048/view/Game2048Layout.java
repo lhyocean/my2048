@@ -121,10 +121,10 @@ public class Game2048Layout extends RelativeLayout{
         if (!isFull()){
            if (isMergeHappen||isMoveHappen){
                Random random=new Random();
-               int next=random.nextInt(16);
+               int next=random.nextInt(mColumn*mColumn);
                Game2048Item item=mGame2048Items[next];
                while (item.getNumber()!=0){
-                   next=random.nextInt(16);
+                   next=random.nextInt(mColumn*mColumn);
                    item=mGame2048Items[next];
                }
                item.setNumber(Math.random()>0.75?4:2);
