@@ -100,6 +100,7 @@ public class Game2048Layout extends RelativeLayout{
             // 放置Item
             for (int i = 0; i < mGame2048Items.length; i++) {
                 Game2048Item item=new Game2048Item(getContext());
+                item.setLineCount(mColumn);
                 mGame2048Items[i]=item;
                 item.setId(i+1);
                 LayoutParams lp=new LayoutParams(childWidth,childWidth);

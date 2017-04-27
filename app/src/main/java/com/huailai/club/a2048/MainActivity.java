@@ -71,7 +71,7 @@ public class MainActivity extends Activity implements Game2048Layout.OnGame2048L
                 level.setText(mGame2048Layout.getColumn()+"");
                 break;
             case R.id.add:
-                if (mGame2048Layout.getColumn()<=7){
+                if (mGame2048Layout.getColumn()<=5){
                     mGame2048Layout.setColumn(mGame2048Layout.getColumn()+1);
                 }else {
                     Toast.makeText(MainActivity.this, "不能再调了", Toast.LENGTH_SHORT).show();
