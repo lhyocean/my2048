@@ -7,11 +7,12 @@
     tools:context="com.huailai.club.a2048.MainActivity">
 
     <com.huailai.club.a2048.view.Game2048Layout
+        android:layout_margin="5dp"
         android:id="@+id/id_game2048"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
-        android:background="#ffffff"
+        android:background="@drawable/background_rectangle"
         android:padding="10dp" >
     </com.huailai.club.a2048.view.Game2048Layout>
 

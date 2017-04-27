@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
@@ -61,7 +62,7 @@ public class Game2048Item extends View {
         String mBgColor="#EA7821";
         switch (mNumber) {
             case 0:
-                mBgColor = "#CCC0B3";
+                mBgColor = "#d6cdc4";
                 break;
             case 2:
                 mBgColor = "#EEE4DA";
@@ -96,13 +97,18 @@ public class Game2048Item extends View {
             case 2048:
                 mBgColor = "#EA7821";
                 break;
+            case 4096 :
+                mBgColor = "#3c3a32";
+                break;
             default:
                 mBgColor = "#EA7821";
                 break;
         }
         mPaint.setColor(Color.parseColor(mBgColor));
         mPaint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(0,0,getWidth(),getHeight(),mPaint);
+        RectF r1=new RectF(0,0,getWidth(),getHeight());
+        canvas.drawRoundRect(r1,10,10,mPaint);
+
         if (mNumber!=0){
             drawText(canvas);
         }
@@ -110,7 +116,12 @@ public class Game2048Item extends View {
     }
 
     private void drawText(Canvas canvas) {
-        mPaint.setColor(Color.BLACK);
+        if (mNumber>4){
+            mPaint.setColor(Color.WHITE);
+        }else {
+            mPaint.setColor(Color.BLACK);
+        }
+
         float x=(getWidth()-mBound.width())/2;
         float y= (getHeight()+mBound.height())/2;
         canvas.drawText(mNumberVal,x,y,mPaint);
